@@ -2,10 +2,17 @@
 class Task
 {
     private $description;
+    private $id;
 
-    function __construct($description)
+    function __construct($description, $id = null)
     {
         $this->description = $description;
+        $this->id = $id;
+    }
+
+    function getId()
+    {
+        return $this->id;
     }
 
     function setDescription($new_description)
@@ -21,6 +28,7 @@ class Task
     function save()
     {
         $GLOBALS['DB']->exec("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}');");
+        $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
     static function getAll()
@@ -29,7 +37,8 @@ class Task
       $tasks = array();
       foreach($returned_tasks as $task) {
           $description = $task['description'];
-          $new_task = new Task($description);
+          $id = $task['id'];
+          $new_task = new Task($description, $id);
           array_push($tasks, $new_task);
       }
       return $tasks;
@@ -38,6 +47,19 @@ class Task
     static function deleteAll()
     {
         $GLOBALS['DB']->exec("DELETE FROM tasks;");
+    }
+
+    static function find($search_id)
+    {
+        $found_task = null;
+        $tasks = Task::getAll();
+        foreach($tasks as $task) {
+            $task_id = $task->getId();
+            if ($task_id == $search_id) {
+                $found_task = $task;
+            }
+        }
+        return $found_task;
     }
 }
 ?>
