@@ -30,10 +30,9 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = 2017-04-20 04:20:00 PM;
+            $due_date = "2017-04-20";
             $category_id = $test_category->getId();
-            $test_task = new Task($description, $due_date, $id, $category_id);
-            $test_task->save();
+            $test_task = new Task ($description, $due_date, $id, $category_id);
             //Act
             $test_task->save();
             //Assert
@@ -50,13 +49,13 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = 2017-04-20 04:20:00 PM;
+            $due_date = "2017-04-20";
             $category_id = $test_category->getId();
             $test_task = new Task($description, $due_date, $id, $category_id);
             $test_task->save();
 
             $description2 = "Water the lawn";
-            $due_date2 = 2066-06-06 06:06:00 PM;
+            $due_date2 = "2066-06-06";
             $test_task2 = new Task($description2, $due_date2, $id, $category_id);
             $test_task2->save();
             // Act
@@ -74,13 +73,13 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = 2017-04-20 04:20:00 PM;
+            $due_date = "2017-04-20";
             $category_id = $test_category->getId();
             $test_task = new Task($description, $due_date, $id, $category_id);
             $test_task->save();
 
             $description2 = "Water the lawn";
-            $due_date2 = 2066-06-06 06:06:00 PM;
+            $due_date2 = "2066-06-06";
             $test_task2 = new Task($description2, $due_date2, $id, $category_id);
             $test_task2->save();
 
@@ -101,13 +100,13 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = 2017-04-20 04:20:00 PM;
+            $due_date = "2017-04-20";
             $category_id = $test_category->getId();
             $test_task = new Task($description, $due_date, $id, $category_id);
             $test_task->save();
 
             //Act
-            $result = $test_Task->getId();
+            $result = $test_task->getId();
 
             //Assert
             $this->assertEquals(true, is_numeric($result));
@@ -122,7 +121,7 @@
           $test_category->save();
 
           $description = "Wash the dog";
-          $due_date = 2017-04-20 04:20:00 PM;
+          $due_date = "2017-04-20";
           $category_id = $test_category->getId();
           $test_task = new Task($description, $due_date, $id, $category_id);
           $test_task->save();
@@ -145,13 +144,13 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = 2017-04-20 04:20:00 PM;
+            $due_date = "2017-04-20";
             $category_id = $test_category->getId();
             $test_task = new Task($description, $due_date, $id, $category_id);
             $test_task->save();
 
             $description2 = "Water the lawn";
-            $due_date2 = 2066-06-06 06:06:00 PM;
+            $due_date2 = "2066-06-06";
             $test_task2 = new Task($description2, $due_date2, $id, $category_id);
             $test_task2->save();
 

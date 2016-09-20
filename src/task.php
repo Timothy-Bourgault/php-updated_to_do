@@ -6,10 +6,10 @@ class Task
     private $category_id;
     private $id;
 
-    function __construct($description, $due_date, $id = null, $category_id)
+    function __construct($description, $due_date = null, $id = null, $category_id)
     {
         $this->description = $description;
-        $this->due_date = $due_date;
+        $this->due_date = date_create($due_date);
         $this->id = $id;
         $this->category_id = $category_id;
     }
@@ -25,12 +25,12 @@ class Task
 
     function setDueDate($new_due_date)
     {
-        $this->due_date = (datetime-local) $new_due_date;
+        $this->due_date = date_create($new_due_date);
     }
 
     function getDueDate()
     {
-        return $this->due_date;
+        return date_format($this->due_date, 'Y-m-d');
     }
 
     function getId()
@@ -43,23 +43,22 @@ class Task
         return $this->category_id;
     }
 
-
     function save()
     {
-        $GLOBALS['DB']->exec("INSERT INTO tasks (description, due_date, category_id) VALUES ('{$this->getDescription()}', {$this->getDueDate()},  {$this->getCategoryId()});");
+        $GLOBALS['DB']->exec("INSERT INTO tasks (description, due_date, category_id) VALUES ('{$this->getDescription()}', '{$this->getDueDate()}',  {$this->getCategoryId()});");
         $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
     static function getAll()
     {
-      $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks;");
+      $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks ORDER BY due_date;");
       $tasks = array();
       foreach($returned_tasks as $task) {
           $description = $task['description'];
           $due_date = $task['due_date'];
           $id = $task['id'];
           $category_id = $task['category_id'];
-          $new_task = new Task($description, $id, $category_id);
+          $new_task = new Task ($description, $due_date, $id, $category_id);
           array_push($tasks, $new_task);
       }
       return $tasks;
